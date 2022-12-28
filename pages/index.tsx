@@ -1,21 +1,21 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { useAuth } from "../hooks/AuthContext";
-import { signInGoogle, signOutGoogle } from "../lib/googleAuth";
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import { useAuth } from '../hooks/AuthContext'
+import { signInGoogle, signOutGoogle } from '../lib/googleAuth'
+import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const { signIn, signOut, isAuthenticated, user } = useAuth();
+  const { signIn, signOut, isAuthenticated, user } = useAuth()
   const handleSignIn = () => {
-    signIn();
-  };
+    signIn()
+  }
   const handleSignOut = () => {
-    console.log("sign out", isAuthenticated);
+    console.log('sign out', isAuthenticated)
 
-    signOut();
-  };
-  console.log(isAuthenticated);
+    signOut()
+  }
+  console.log(isAuthenticated)
 
   return (
     <div className={styles.container}>
@@ -40,14 +40,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
+          Powered by{' '}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

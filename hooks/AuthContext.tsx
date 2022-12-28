@@ -1,15 +1,14 @@
-import { GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
-import { createContext, useContext, useState, useEffect, useMemo } from "react";
-import { auth } from "../lib/firebase";
-import { signInGoogle, signOutGoogle } from "../lib/googleAuth";
+import { onAuthStateChanged } from 'firebase/auth'
+import { createContext, useContext, useState, useEffect, useMemo } from 'react'
+import { auth } from '../lib/firebase'
+import { signInGoogle, signOutGoogle } from '../lib/googleAuth'
 
-const AuthUserContext = createContext({});
-const provider = new GoogleAuthProvider();
+const AuthUserContext = createContext({})
 
 export function AuthUserProvider({ children }) {
-  const [authUser, setAuthUser] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [authUser, setAuthUser] = useState({})
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const values = useMemo(
     () => ({
@@ -17,36 +16,36 @@ export function AuthUserProvider({ children }) {
       isLoading: isLoading,
       isAuthenticated: isAuthenticated,
       signIn: () => signInGoogle(),
-      signOut: () => signOutGoogle(),
+      signOut: () => signOutGoogle()
     }),
     [authUser]
-  );
+  )
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsAuthenticated(true);
-        setIsLoading(false);
+        setIsAuthenticated(true)
+        setIsLoading(false)
         setAuthUser(() => {
           return {
             fullName: user.displayName,
             email: user.email,
             firebaseUId: user.uid,
-            profilePicture: user.photoURL,
-          };
-        });
+            profilePicture: user.photoURL
+          }
+        })
       } else {
-        setIsAuthenticated(false);
-        setIsLoading(false);
-        setAuthUser({});
+        setIsAuthenticated(false)
+        setIsLoading(false)
+        setAuthUser({})
       }
-    });
-  }, [auth]);
+    })
+  }, [auth])
 
   return (
     <AuthUserContext.Provider value={values}>
       {children}
     </AuthUserContext.Provider>
-  );
+  )
 }
 
-export const useAuth = () => useContext(AuthUserContext);
+export const useAuth = () => useContext(AuthUserContext)
