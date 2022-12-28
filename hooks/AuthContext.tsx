@@ -3,10 +3,29 @@ import { createContext, useContext, useState, useEffect, useMemo } from 'react'
 import { auth } from '../lib/firebase'
 import { signInGoogle, signOutGoogle } from '../lib/googleAuth'
 
-const AuthUserContext = createContext({})
+interface AuthUser {
+  name: string
+  email: string
+}
 
-export function AuthUserProvider({ children }) {
-  const [authUser, setAuthUser] = useState({})
+interface ContextValue {
+  values?: {
+    user: AuthUser
+    isLoading: boolean
+    isAuthenticated: boolean
+    signIn: () => void
+    signOut: () => void
+  }
+}
+
+interface AuthUserContext extends ContextValue {
+  children: React.ReactNode
+}
+
+const AuthUserContext = createContext<ContextValue>({} as ContextValue)
+
+export const AuthUserProvider: React.FC<AuthUserContext> = ({ children }) => {
+  const [authUser, setAuthUser] = useState({} as AuthUser)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -25,24 +44,20 @@ export function AuthUserProvider({ children }) {
       if (user) {
         setIsAuthenticated(true)
         setIsLoading(false)
-        setAuthUser(() => {
-          return {
-            fullName: user.displayName,
-            email: user.email,
-            firebaseUId: user.uid,
-            profilePicture: user.photoURL
-          }
+        setAuthUser({
+          name: user.displayName ?? '',
+          email: user.email ?? ''
         })
       } else {
         setIsAuthenticated(false)
         setIsLoading(false)
-        setAuthUser({})
+        setAuthUser({} as AuthUser)
       }
     })
   }, [auth])
 
   return (
-    <AuthUserContext.Provider value={values}>
+    <AuthUserContext.Provider value={{ values }}>
       {children}
     </AuthUserContext.Provider>
   )

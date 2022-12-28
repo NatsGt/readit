@@ -2,20 +2,18 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useAuth } from '../hooks/AuthContext'
-import { signInGoogle, signOutGoogle } from '../lib/googleAuth'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const { signIn, signOut, isAuthenticated, user } = useAuth()
+  const { values } = useAuth()
   const handleSignIn = () => {
-    signIn()
+    values?.signIn()
   }
   const handleSignOut = () => {
-    console.log('sign out', isAuthenticated)
-
-    signOut()
+    console.log('sign out', values?.isAuthenticated)
+    values?.signOut()
   }
-  console.log(isAuthenticated)
+  console.log(values?.isAuthenticated)
 
   return (
     <div className={styles.container}>
@@ -29,7 +27,9 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>HELLO</h1>
         <button onClick={handleSignIn}>Sign in</button>
         <button onClick={handleSignOut}>Sign out</button>
-        <button onClick={() => console.log(isAuthenticated, user)}>
+        <button
+          onClick={() => console.log(values?.isAuthenticated, values?.user)}
+        >
           authenticated?
         </button>
       </main>
