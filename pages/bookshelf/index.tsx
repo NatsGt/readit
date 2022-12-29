@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import SearchInput from '../../components/Search/SearchInput'
 import SearchResults from '../../components/Search/SearchResults'
 import { useAuth } from '../../hooks/AuthContext'
-import { useGetBooks } from '../../hooks/books'
 
 const Bookshelf = () => {
   const router = useRouter()
@@ -14,7 +13,7 @@ const Bookshelf = () => {
     if (!isAuthenticated) {
       router.push('/')
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, router])
   const handleSignOut = () => {
     console.log('sign out', isAuthenticated)
     signOut()

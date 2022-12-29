@@ -18,7 +18,7 @@ const Home: NextPage = () => {
     if (isAuthenticated) {
       router.push('/bookshelf')
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, router])
 
   return (
     <div className={styles.container}>

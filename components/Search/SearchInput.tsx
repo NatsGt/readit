@@ -11,8 +11,15 @@ const SearchInput: React.FC<SearchInputProp> = ({ setSearchQuery }) => {
   const debouncedValue = useDebounce(inputText)
   useEffect(() => {
     setSearchQuery(debouncedValue)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
-  return <Input onChange={(e) => setInputText(e.target.value)} />
+  return (
+    <Input
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        setInputText(e.target.value)
+      }
+    />
+  )
 }
 
 export default SearchInput
