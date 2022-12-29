@@ -9,16 +9,14 @@ interface AuthUser {
 }
 
 interface ContextValue {
-  values?: {
-    user: AuthUser
-    isLoading: boolean
-    isAuthenticated: boolean
-    signIn: () => void
-    signOut: () => void
-  }
+  user: AuthUser
+  isLoading: boolean
+  isAuthenticated: boolean
+  signIn: () => void
+  signOut: () => void
 }
 
-interface AuthUserContext extends ContextValue {
+interface AuthUserContext {
   children: React.ReactNode
 }
 
@@ -57,7 +55,7 @@ export const AuthUserProvider: React.FC<AuthUserContext> = ({ children }) => {
   }, [auth])
 
   return (
-    <AuthUserContext.Provider value={{ values }}>
+    <AuthUserContext.Provider value={{ ...values }}>
       {children}
     </AuthUserContext.Provider>
   )

@@ -1,27 +1,30 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import SearchInput from '../../components/SearchInput'
 import { useAuth } from '../../hooks/AuthContext'
 import { useGetBooks } from '../../hooks/books'
 
 const Bookshelf = () => {
   const router = useRouter()
-  const { values } = useAuth()
+  const { isAuthenticated, signOut, user } = useAuth()
+  const [searchQuery, setSearchQuery] = useState()
   const { data } = useGetBooks('isabel%20allende')
   useEffect(() => {
-    if (!values?.isAuthenticated) {
+    if (!isAuthenticated) {
       router.push('/')
     }
-  }, [values])
+  }, [isAuthenticated])
   const handleSignOut = () => {
-    console.log('sign out', values?.isAuthenticated)
-    values?.signOut()
+    console.log('sign out', isAuthenticated)
+    signOut()
   }
   console.log(data)
 
   return (
     <div>
-      Yeii {values?.user.name}, you are in
+      Yeii {user.name}, you are in
       <button onClick={handleSignOut}>Sign out</button>
+      <SearchInput />
     </div>
   )
 }

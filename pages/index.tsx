@@ -7,19 +7,18 @@ import styles from '../styles/Home.module.css'
 import { useEffect } from 'react'
 
 const Home: NextPage = () => {
-  const { values } = useAuth()
+  const { isAuthenticated, signIn, user } = useAuth()
   const router = useRouter()
+
   const handleSignIn = () => {
-    values?.signIn()
+    signIn()
   }
 
-  console.log(values?.isAuthenticated)
-
   useEffect(() => {
-    if (values?.isAuthenticated) {
+    if (isAuthenticated) {
       router.push('/bookshelf')
     }
-  }, [values])
+  }, [isAuthenticated])
 
   return (
     <div className={styles.container}>
@@ -33,9 +32,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>HELLO</h1>
         <button onClick={handleSignIn}>Sign in</button>
 
-        <button
-          onClick={() => console.log(values?.isAuthenticated, values?.user)}
-        >
+        <button onClick={() => console.log(isAuthenticated, user)}>
           authenticated?
         </button>
       </main>
