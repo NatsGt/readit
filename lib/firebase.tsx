@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+import { getDatabase } from 'firebase/database'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,18 +15,14 @@ const firebaseConfig = {
   messagingSenderId:
     process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_MEASUREMENT_ID
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_MEASUREMENT_ID,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_DATABASE
 }
 
 // Initialize Firebase
-initializeApp(firebaseConfig)
-//const db = getFirestore(app);
-
-// firebase.initializeApp(firebaseConfig);
-// const auth = firebase.auth();
-// const provider = new firebase.auth.GoogleAuthProvider();
-// provider.setCustomParameters({ prompt: "select_account" });
+const app = initializeApp(firebaseConfig)
 
 export const auth = getAuth()
+export const db = getDatabase(app)
 
 export default firebaseConfig
