@@ -1,0 +1,23 @@
+@mixin border-component {
+  border: 1px transparent solid;
+  border-radius: 12px;
+}
+
+//flex-column
+@mixin flex-column-between-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+//flex-row
+@mixin flex-row-start-center {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+@mixin flex-row-center-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

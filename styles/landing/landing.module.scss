@@ -1,0 +1,59 @@
+@use '../variables/' as *;
+
+.container {
+  height: 100vh;
+  @include flex-column-between-start;
+  .main {
+    flex: 1;
+    &__inner {
+      height: 100%;
+      @include flex-row-center-center;
+      gap: 3rem;
+      &__logoContainer {
+        position: relative;
+        height: 50vh;
+        width: 50vw;
+      }
+      &__signIn {
+        width: 30vw;
+        height: 30vh;
+        padding: 2rem;
+        @include border-component;
+        border-color: $color-pink-medium;
+        border-width: 5px;
+        @include flex-column-between-start;
+        .title {
+          text-align: center;
+        }
+        &__buttonContainer {
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .footer {
+    height: 7vh;
+    padding: 2rem 1rem;
+    &__inner {
+      @include flex-row-center-center;
+      height: 100%;
+      &__link {
+        &:hover {
+          cursor: pointer;
+          color: $color-pink-dark;
+        }
+        &__linkInner {
+          @include flex-row-start-center;
+          height: 100%;
+        }
+        .logoContainer {
+          position: relative;
+          width: 7vw;
+          height: 5vh;
+        }
+      }
+    }
+  }
+}
