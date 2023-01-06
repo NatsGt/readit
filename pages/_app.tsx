@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { AuthUserProvider } from '../hooks/AuthContext'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
